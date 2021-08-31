@@ -10,12 +10,13 @@ module "synapse_workspaces" {
   storage_data_lake_gen2_filesystem_id = try(each.value.lz_key, null) == null ? local.combined_objects_storage_accounts[local.client_config.landingzone_key][each.value.data_lake_filesystem.storage_account_key].data_lake_filesystems[each.value.data_lake_filesystem.container_key].id : local.combined_objects_storage_accounts[each.value.lz_key][each.value.data_lake_filesystem.storage_account_key].data_lake_filesystems[each.value.data_lake_filesystem.container_key].id
   keyvault_id                          = try(each.value.sql_administrator_login_password, null) == null ? module.keyvaults[each.value.keyvault_key].id : null
   base_tags                            = try(local.global_settings.inherit_tags, false) ? local.resource_groups[each.value.resource_group_key].tags : {}
+  private_dns                          = local.combined_objects_private_dns
+  vnets                                = local.combined_objects_networking
+  private_endpoints                    = try(each.value.private_endpoints, {})
+  resource_groups                      = try(each.value.private_endpoints, {}) == {} ? null : local.resource_groups
+  client_config                        = local.client_config
 }
 
 output "synapse_workspaces" {
   value = module.synapse_workspaces
-
 }
-
-
-
