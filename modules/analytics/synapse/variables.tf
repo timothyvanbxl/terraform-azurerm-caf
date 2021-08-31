@@ -30,3 +30,18 @@ variable "base_tags" {
   description = "Base tags for the resource to be inherited from the resource group."
   type        = map(any)
 }
+variable "vnets" {
+  default = {}
+}
+variable "private_endpoints" {
+  default = {}
+}
+variable "resource_groups" {
+  default = {}
+}
+variable "client_config" {
+  description = "Client configuration object (see module README.md)."
+}
+variable "private_dns" {
+  default = {}
+}
