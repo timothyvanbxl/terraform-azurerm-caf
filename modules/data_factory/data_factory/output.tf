@@ -9,3 +9,7 @@ output "name" {
 output "identity" {
   value = azurerm_data_factory.df.identity
 }
+
+output "rbac_id" {
+  value = azurerm_data_factory.df.identity[0].principal_id
+}
