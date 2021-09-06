@@ -8,7 +8,7 @@ resource "azurecaf_name" "keyvault" {
   name          = var.settings.name
   resource_type = "azurerm_key_vault"
   prefixes      = var.global_settings.prefixes
-  random_length = 0 #var.global_settings.random_length
+  random_length = 4 #var.global_settings.random_length
   clean_input   = true
   passthrough   = var.global_settings.passthrough
   use_slug      = var.global_settings.use_slug
