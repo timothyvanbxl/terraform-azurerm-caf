@@ -30,6 +30,11 @@ output "sql_pool" {
   value       = module.sql_pool
 }
 
+output "sql_pool_id" {
+  description = "SQL pool object ID"
+  value       = module.sql_pool.id
+}
+
 output "rbac_id" {
   value = azurerm_synapse_workspace.ws.identity[0].principal_id
 
