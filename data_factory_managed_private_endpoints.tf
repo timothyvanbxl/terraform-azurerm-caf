@@ -26,5 +26,5 @@ module "managed_private_endpoint_synapse_sql_pools" {
 
   name               = each.value.name
   data_factory_id    = module.data_factory[each.value.data_factory_key].id
-  target_resource_id = module.synapse_workspaces[each.value.synapse_workspaces_key].sql_pool.id
+  target_resource_id = module.synapse_workspaces[each.value.synapse_workspaces_key].sql_pool_id
 }
