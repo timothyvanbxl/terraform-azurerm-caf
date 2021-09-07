@@ -25,7 +25,7 @@ resource "azurerm_synapse_workspace" "ws" {
   tags                                 = local.tags
 
   dynamic "aad_admin" {
-    for_each = try(var.settings.aad_admin, {})
+    for_each = try(var.settings.aad_admin, null) == null ? [] : [1]
 
     content {
       login     = var.settings.aad_admin.login
