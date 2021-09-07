@@ -131,6 +131,9 @@ locals {
     linked_services = {
       azure_blob_storage = try(var.data_factory.linked_services.azure_blob_storage, {})
     }
+    managed_private_endpoints = {
+      data_lake_storage_gen2 = try(var.data_factory.managed_private_endpoints.data_lake_storage_gen2, {})
+    }
   }
 
   dynamic_app_settings_combined_objects = {
