@@ -133,6 +133,8 @@ locals {
     }
     managed_private_endpoints = {
       data_lake_storage_gen2 = try(var.data_factory.managed_private_endpoints.data_lake_storage_gen2, {})
+      keyvaults              = try(var.data_factory.managed_private_endpoints.keyvaults, {})
+      synapse_sql_pools      = try(var.data_factory.managed_private_endpoints.synapse_sql_pools, {})
     }
   }
 
