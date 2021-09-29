@@ -52,6 +52,7 @@ resource "azurerm_databricks_workspace" "ws" {
         try(var.settings.custom_parameters.virtual_network_id, null),
         try(var.vnets[var.client_config.landingzone_key][var.settings.custom_parameters.vnet_key].id, null),
         try(var.vnets[var.settings.custom_parameters.lz_key][var.settings.custom_parameters.vnet_key].id, null),
+        try(var.settings.custom_parameters.hardcoded_vnet_id, null),
         ),
         null
       )
@@ -60,6 +61,7 @@ resource "azurerm_databricks_workspace" "ws" {
         try(var.settings.custom_parameters.public_subnet_name, null),
         try(var.vnets[var.client_config.landingzone_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.public_subnet_key].name, null),
         try(var.vnets[var.settings.custom_parameters.lz_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.public_subnet_key].name, null),
+        try(var.settings.custom_parameters.hardcoded_public_subnet_name, null),
         ),
         null
       )
@@ -69,6 +71,7 @@ resource "azurerm_databricks_workspace" "ws" {
         try(var.settings.custom_parameters.public_subnet_network_security_group_association_id, null),
         try(var.vnets[var.client_config.landingzone_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.public_subnet_key].id, null),
         try(var.vnets[var.settings.custom_parameters.lz_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.public_subnet_key].id, null),
+        try(var.settings.custom_parameters.hardcoded_public_subnet_id, null),
         ),
         null
       )
@@ -77,6 +80,7 @@ resource "azurerm_databricks_workspace" "ws" {
         try(var.settings.custom_parameters.private_subnet_name, null),
         try(var.vnets[var.client_config.landingzone_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.private_subnet_key].name, null),
         try(var.vnets[var.settings.custom_parameters.lz_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.private_subnet_key].name, null),
+        try(var.settings.custom_parameters.hardcoded_private_subnet_name, null),
         ),
         null
       )
@@ -86,6 +90,7 @@ resource "azurerm_databricks_workspace" "ws" {
         try(var.settings.custom_parameters.private_subnet_network_security_group_association_id, null),
         try(var.vnets[var.client_config.landingzone_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.public_subnet_key].id, null),
         try(var.vnets[var.settings.custom_parameters.lz_key][var.settings.custom_parameters.vnet_key].subnets[var.settings.custom_parameters.public_subnet_key].id, null),
+        try(var.settings.custom_parameters.hardcoded_public_subnet_id, null),
         ),
         null
       )
