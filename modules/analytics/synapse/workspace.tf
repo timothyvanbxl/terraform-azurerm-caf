@@ -137,3 +137,13 @@ resource "azurerm_synapse_firewall_rule" "wrkspc_firewalls" {
   end_ip_address   = each.value.end_ip
 }
 
+resource "azurerm_synapse_role_assignment" "synapse_role_assignmants" {
+  for_each = try(var.settings.synapse_role_assignmants, {})
+
+  synapse_workspace_id = azurerm_synapse_workspace.ws.id
+  role_name            = each.value.role_name #"Synapse SQL Administrator"
+  principal_id         = each.value.object_id
+
+  depends_on = [azurerm_synapse_firewall_rule.wrkspc_firewall]
+}
+
