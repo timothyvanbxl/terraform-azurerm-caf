@@ -81,7 +81,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   os_disk {
     caching                   = each.value.os_disk.caching
     disk_size_gb              = try(each.value.os_disk.disk_size_gb, null)
-    name                      = try(each.value.name_hardcoded, azurecaf_name.os_disk_windows[each.key].result)
+    name                      = try(each.value.os_disk.name_hardcoded, azurecaf_name.os_disk_windows[each.key].result)
     storage_account_type      = each.value.os_disk.storage_account_type
     write_accelerator_enabled = try(each.value.os_disk.write_accelerator_enabled, false)
     disk_encryption_set_id    = try(each.value.os_disk.disk_encryption_set_key, null) == null ? null : try(var.disk_encryption_sets[var.client_config.landingzone_key][each.value.os_disk.disk_encryption_set_key].id, var.disk_encryption_sets[each.value.os_disk.lz_key][each.value.os_disk.disk_encryption_set_key].id, null)
