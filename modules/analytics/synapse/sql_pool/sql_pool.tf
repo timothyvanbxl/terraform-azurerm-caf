@@ -10,7 +10,7 @@ resource "azurecaf_name" "sqlpool" {
 }
 
 resource "azurerm_synapse_sql_pool" "sql_pool" {
-  name                 = azurecaf_name.sqlpool.result
+  name                 = try(var.settings.name_hardcoded, azurecaf_name.sqlpool.result)
   synapse_workspace_id = var.synapse_workspace_id
   sku_name             = try(var.settings.sku_name, "DW100c")
   create_mode          = try(var.settings.create_mode, "Default")
