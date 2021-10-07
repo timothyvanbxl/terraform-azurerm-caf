@@ -14,6 +14,7 @@ module "data_factory" {
   base_tags                       = try(local.global_settings.inherit_tags, false) ? local.resource_groups[each.value.resource_group_key].tags : {}
   tags                            = try(each.value.tags, null)
   managed_virtual_network_enabled = try(each.value.managed_virtual_network_enabled, null) == null ? false : each.value.managed_virtual_network_enabled
+  public_network_enabled          = try(each.value.public_network_enabled, null) == null ? true : each.value.public_network_enabled
   private_dns                     = local.combined_objects_private_dns
   vnets                           = local.combined_objects_networking
   private_endpoints               = try(each.value.private_endpoints, {})
