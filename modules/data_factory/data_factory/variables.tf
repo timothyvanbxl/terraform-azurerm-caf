@@ -33,6 +33,9 @@ variable "global_settings" {}
 variable "managed_virtual_network_enabled" {
   type = bool
 }
+variable "public_network_enabled" {
+  type = bool
+}
 variable "private_endpoints" {
   default = {}
 }
