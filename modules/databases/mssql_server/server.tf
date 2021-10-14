@@ -86,5 +86,5 @@ resource "azurerm_key_vault_secret" "sql_admin_password" {
 resource "azurerm_mssql_server_transparent_data_encryption" "tde" {
   count = try(var.settings.tde, null) == null ? 0 : 1
   
-  server_id = var.server_id
+  server_id = azurerm_mssql_server.mssql.id
 }
