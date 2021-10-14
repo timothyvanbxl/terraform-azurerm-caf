@@ -99,7 +99,7 @@ resource "azurerm_mssql_server_extended_auditing_policy" "mssql_audit" {
   retention_in_days                       = try(var.settings.mssqldb_sql_audit.retention_in_days, 6)
 }
     
-# threat detection policy
+# SQL audit
 data "azurerm_storage_account" "mssqldb_sql_audit" {
   count = try(var.settings.mssql_audit.storage_account_key, null) == null ? 0 : 1
 
