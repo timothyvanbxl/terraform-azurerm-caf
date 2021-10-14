@@ -64,7 +64,7 @@ resource "azurerm_mssql_database" "mssqldb" {
 }
 
 resource "azurerm_mssql_server_transparent_data_encryption" "tde" {
-  count = try(var.settings.tde, null) == null ? 0 : 1
+  count = try(var.settings.tde, false) == false ? 0 : 1
   
   server_id = var.server_id
 }
