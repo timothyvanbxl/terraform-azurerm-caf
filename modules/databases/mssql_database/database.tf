@@ -61,14 +61,15 @@ resource "azurerm_mssql_database" "mssqldb" {
       week_of_year      = try(var.settings.long_term_retention_policy.week_of_year, null)
     }
   }
-
-
 }
 
-
+resource "azurerm_mssql_server_transparent_data_encryption" "tde" {
+  count = try(var.settings.tde, null) == null ? 0 : 1
+  
+  server_id = var.server_id
+}
 
 # threat detection policy
-
 data "azurerm_storage_account" "mssqldb_tdp" {
   count = try(var.settings.threat_detection_policy.storage_account.key, null) == null ? 0 : 1
 
