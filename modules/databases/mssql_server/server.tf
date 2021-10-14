@@ -90,7 +90,7 @@ resource "azurerm_mssql_server_transparent_data_encryption" "tde" {
 }
 
 resource "azurerm_mssql_server_extended_auditing_policy" "mssql_audit" {
-  for_each = lookup(var.settings, "mssql_audit", {}) == {} ? [] : [1]
+  count = try(var.settings.mssql_audit, null) == null ? 0 : 1
   
   server_id                               = azurerm_mssql_server.mssql.id
   storage_endpoint                        = try(data.azurerm_storage_account.mssqldb_sql_audit.0.primary_blob_endpoint, null)
