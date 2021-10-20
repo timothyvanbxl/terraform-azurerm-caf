@@ -86,7 +86,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   zone_balance                    = try(each.value.zone_balance, null)
   zones                           = try(each.value.zones, null)
   overprovision                   = try(each.value.overprovision, false)
-  single_placement_group          = try(each.value.single_placement_group, null)
+  single_placement_group          = try(each.value.single_placement_group, false)
 
   dynamic "admin_ssh_key" {
     for_each = lookup(each.value, "disable_password_authentication", true) == true ? [1] : []
