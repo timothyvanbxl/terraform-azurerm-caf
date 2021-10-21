@@ -12,6 +12,7 @@ module "machine_learning_workspaces" {
   keyvault_id             = lookup(each.value, "keyvault_key") == null ? null : module.keyvaults[each.value.keyvault_key].id
   application_insights_id = lookup(each.value, "application_insights_key") == null ? null : module.azurerm_application_insights[each.value.application_insights_key].id
   container_registry_id   = try(each.value.container_registry_key, null) == null ? null : try(local.combined_objects_container_registry[each.value.lz_key][each.value.container_registry_key].id, local.combined_objects_container_registry[local.client_config.landingzone_key][each.value.container_registry_key].id)
+  private_endpoints       = try(each.value.private_endpoints, {})
   base_tags               = try(local.global_settings.inherit_tags, false) ? local.resource_groups[each.value.resource_group_key].tags : {}
 }
 
