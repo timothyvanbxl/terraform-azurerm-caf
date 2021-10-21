@@ -4,4 +4,5 @@ module "cluster" {
 
   global_settings = var.global_settings
   settings        = each.value
+  tags            = local.tags
 }

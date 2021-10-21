@@ -85,6 +85,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   upgrade_mode                    = try(each.value.upgrade_mode, null)
   zone_balance                    = try(each.value.zone_balance, null)
   zones                           = try(each.value.zones, null)
+  overprovision                   = try(each.value.overprovision, false)
+  single_placement_group          = try(each.value.single_placement_group, false)
 
   dynamic "admin_ssh_key" {
     for_each = lookup(each.value, "disable_password_authentication", true) == true ? [1] : []
@@ -108,7 +110,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
       ip_configuration {
         name                                         = azurecaf_name.linux_nic[network_interface.key].result
         primary                                      = try(network_interface.value.primary, false)
-        subnet_id                                    = try(var.vnets[var.client_config.landingzone_key][network_interface.value.vnet_key].subnets[network_interface.value.subnet_key].id, var.vnets[network_interface.value.lz_key][network_interface.value.vnet_key].subnets[network_interface.value.subnet_key].id)
+        subnet_id                                    = try(var.vnets[var.client_config.landingzone_key][network_interface.value.vnet_key].subnets[network_interface.value.subnet_key].id, var.vnets[network_interface.value.lz_key][network_interface.value.vnet_key].subnets[network_interface.value.subnet_key].id, network_interface.value.hardcoded_subnet_id)
         load_balancer_backend_address_pool_ids       = try(local.load_balancer_backend_address_pool_ids, null)
         application_gateway_backend_address_pool_ids = try(local.application_gateway_backend_address_pool_ids, null)
         application_security_group_ids               = try(local.application_security_group_ids, null)
