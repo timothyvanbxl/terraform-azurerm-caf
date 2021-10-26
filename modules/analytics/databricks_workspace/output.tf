@@ -22,5 +22,6 @@ output "workspace_id" {
 }
 
 output "rbac_id" {
-  value = azurerm_databricks_workspace.ws.identity[0].principal_id
+  value = azurerm_databricks_workspace.ws.storage_account_identity.principal_id
+  #to be checked
 }
