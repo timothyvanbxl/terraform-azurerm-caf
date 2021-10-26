@@ -19,5 +19,8 @@ output "workspace_url" {
 output "workspace_id" {
   description = "The unique identifier of the databricks workspace in Databricks control plane."
   value       = azurerm_databricks_workspace.ws.workspace_id
+}
 
+output "rbac_id" {
+  value = azurerm_databricks_workspace.ws.identity[0].principal_id
 }
