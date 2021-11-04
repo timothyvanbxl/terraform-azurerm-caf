@@ -232,3 +232,17 @@ module "file_share" {
   recovery_vault       = local.recovery_vault
   resource_group_name  = var.resource_group_name
 }
+
+resource "azurerm_key_vault_secret" "sa_access_key" {
+  count = try(var.keyvault_id, null) == null ? 0 : 1
+
+  name         = format("%s-acccess-key", azurerm_storage_account.stg.name)
+  value        = azurerm_storage_account.stg.primary_access_key
+  key_vault_id = var.keyvault_id
+
+  lifecycle {
+    ignore_changes = [
+      value
+    ]
+  }
+}
