@@ -31,3 +31,7 @@ variable "recovery_vaults" {
 variable "private_dns" {
   default = {}
 }
+
+variable "keyvault_id" {
+  default = {}
+}

@@ -14,6 +14,7 @@ module "storage_accounts" {
   recovery_vaults     = local.combined_objects_recovery_vaults
   base_tags           = try(local.global_settings.inherit_tags, false) ? local.resource_groups[each.value.resource_group_key].tags : {}
   private_dns         = local.combined_objects_private_dns
+  keyvault_id         = try(module.keyvaults[each.value.keyvault_key].id , null)
 }
 
 output "storage_accounts" {
