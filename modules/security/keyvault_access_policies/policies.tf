@@ -221,3 +221,22 @@ module "diagnostic_storage_accounts" {
   tenant_id     = var.resources.diagnostic_storage_accounts[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.diagnostic_storage_account_key].identity.0.tenant_id
   object_id     = var.resources.diagnostic_storage_accounts[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.diagnostic_storage_account_key].identity.0.principal_id
 }
+
+module "data_factory" {
+  source = "./access_policy"
+  for_each = {
+    for key, access_policy in var.access_policies : key => access_policy
+    if try(access_policy.data_factory_key, null) != null
+  }
+
+  keyvault_id = coalesce(
+    var.keyvault_id,
+    try(var.keyvaults[each.value.keyvault_lz_key][var.keyvault_key].id, null),
+    try(var.keyvaults[var.client_config.landingzone_key][var.keyvault_key].id, null),
+    try(var.keyvaults[each.value.lz_key][var.keyvault_key].id, null) // For backward compatibility
+  )
+
+  access_policy = each.value
+  tenant_id     = var.resources.data_factory[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.data_factory_key].identity.0.tenant_id
+  object_id     = var.resources.data_factory[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.data_factory_key].identity.0.principal_id
+}
