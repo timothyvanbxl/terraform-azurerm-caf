@@ -234,11 +234,11 @@ module "file_share" {
 }
 
 resource "azurerm_key_vault_secret" "sa_access_key" {
-  count = try(var.keyvault_id, null) == null ? 0 : 1
+  count = try(var.storage_account.keyvault_id, null) == null ? 0 : 1
 
   name         = format("%s-acccess-key", azurerm_storage_account.stg.name)
   value        = azurerm_storage_account.stg.primary_access_key
-  key_vault_id = var.keyvault_id
+  key_vault_id = var.storage_account.keyvault_id
 
   lifecycle {
     ignore_changes = [
