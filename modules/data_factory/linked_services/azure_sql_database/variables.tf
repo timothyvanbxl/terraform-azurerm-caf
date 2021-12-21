@@ -33,3 +33,7 @@ variable "parameters" {
 variable "additional_properties" {
   description = "(Optional) A map of additional properties to associate with the Data Factory Linked Service Azure SQL Database."
 }
+
+variable "use_managed_identity" {
+  description = "(Optional) Whether to use the Data Factory's managed identity to authenticate against the Azure SQL Database. Incompatible with service_principal_id and service_principal_key"
+}
