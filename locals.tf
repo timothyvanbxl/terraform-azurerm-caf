@@ -130,6 +130,8 @@ locals {
     }
     linked_services = {
       azure_blob_storage = try(var.data_factory.linked_services.azure_blob_storage, {})
+      azure_sql_database = try(var.data_factory.linked_services.azure_sql_database, {})
+      key_vault          = try(var.data_factory.linked_services.key_vault, {})
       odata              = try(var.data_factory.linked_services.odata, {})
     }
     managed_private_endpoints = {
