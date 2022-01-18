@@ -1,6 +1,6 @@
 resource "azurerm_mssql_server" "mssql" {
 
-  name                          = azurecaf_name.mssql.result
+  name                          = lower(azurecaf_name.mssql.result)
   resource_group_name           = var.resource_group_name
   location                      = var.location
   version                       = try(var.settings.version, "12.0")
