@@ -7,6 +7,7 @@ module "function_apps" {
   name                       = each.value.name
   client_config              = local.client_config
   dynamic_app_settings       = try(each.value.dynamic_app_settings, {})
+  app_settings               = try(each.value.app_settings, null)
   combined_objects           = local.dynamic_app_settings_combined_objects
   resource_group_name        = local.resource_groups[each.value.resource_group_key].name
   location                   = lookup(each.value, "region", null) == null ? local.resource_groups[each.value.resource_group_key].location : local.global_settings.regions[each.value.region]
