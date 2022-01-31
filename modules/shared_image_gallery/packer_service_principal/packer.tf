@@ -76,7 +76,7 @@ resource "null_resource" "delete_image" {
   }
   provisioner "local-exec" {
     when        = destroy
-    interpreter = ["/bin/bash"]
+    interpreter = ["C:/Program Files/Git/bin/sh.exe", "-c"]
     command     = format("%s/destroy_image.sh", path.module)
     on_failure  = fail
     environment = {
