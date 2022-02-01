@@ -35,10 +35,21 @@ resource "azurerm_virtual_network_gateway" "vngw" {
     for_each = try(var.settings.vpn_client_configuration, {})
     content {
       address_space = vpn_client_configuration.value.address_space
-      root_certificate {
-        name             = vpn_client_configuration.value.root_certificate.name
-        public_cert_data = vpn_client_configuration.value.root_certificate.public_cert_data
+
+      aad_tenant            = try(vpn_client_configuration.value.aad_tenant, null) #https://login.microsoftonline.com/<tenant id>/
+      aad_audience          = try(vpn_client_configuration.value.aad_audience, null) #41b23e61-6c1e-4545-b367-cd054e0ed4b4
+      aad_issuer            = try(vpn_client_configuration.value.aad_issuer, null) #https://sts.windows.net/<tenant id>/
+      #vpn_auth_types        = try(vpn_client_configuration.value.vpn_auth_types, null) # SSTP, IkeV2 and OpenVPN. Values SSTP and IkeV2 are incompatible with the use of aad_tenant, aad_audience and aad_issuer
+      vpn_client_protocols  = try(vpn_client_configuration.value.vpn_client_protocols, null) # AAD, Radius or Certificate
+
+      dynamic "root_certificate" {
+        for_each = try(vpn_client_configuration.value.root_certificate, {})
+        content {
+          name             = root_certificate.name
+          public_cert_data = root_certificate.public_cert_data
+        }
       }
+
       dynamic "revoked_certificate" {
         for_each = try(vpn_client_configuration.value.revoked_certificate, {})
         content {
