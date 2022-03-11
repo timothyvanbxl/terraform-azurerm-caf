@@ -104,8 +104,8 @@ resource "azurerm_function_app" "function_app" {
     for_each = try(var.identity, null) == null ? [] : [1]
 
     content {
-      type         = "UserAssigned"
-      identity_ids = local.managed_identities
+      type         = try(var.identity.type, null)
+      identity_ids = try(var.identity.identity_ids, null)
     }
   }
 
