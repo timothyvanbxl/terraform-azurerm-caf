@@ -169,7 +169,7 @@ resource "azurerm_function_app" "function_app" {
 }
 
 resource "azurerm_app_service_virtual_network_swift_connection" "vnet_config" {
-  depends_on = [azurerm_function_app.function_app, azurerm_virtual_network.vnet]
+  depends_on = [azurerm_function_app.function_app]
   count      = try(var.subnet_id, null) == null ? 0 : 1
 
   app_service_id = azurerm_function_app.function_app.id
