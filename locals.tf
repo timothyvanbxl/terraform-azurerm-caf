@@ -133,7 +133,7 @@ locals {
       azure_sql_database     = try(var.data_factory.linked_services.azure_sql_database, {})
       key_vault              = try(var.data_factory.linked_services.key_vault, {})
       odata                  = try(var.data_factory.linked_services.odata, {})
-      data_lake_storage_gen2 = try(var.data_factory.linked_services.data_lake_storage_gen2, {})
+      #data_lake_storage_gen2 = try(var.data_factory.linked_services.data_lake_storage_gen2, {})
     }
     managed_private_endpoints = {
       data_lake_storage_gen2 = try(var.data_factory.managed_private_endpoints.data_lake_storage_gen2, {})
