@@ -98,6 +98,7 @@ locals {
     storage_accounts            = local.combined_objects_storage_accounts
     subscriptions               = local.combined_objects_subscriptions
     synapse_workspaces          = local.combined_objects_synapse_workspaces
+    analysis_services           = local.combined_objects_analysis_services
     databricks_workspaces       = local.combined_objects_databricks_workspaces
   }
 
