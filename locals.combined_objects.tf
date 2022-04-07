@@ -62,6 +62,7 @@ locals {
   combined_objects_resource_groups                     = merge(tomap({ (local.client_config.landingzone_key) = local.resource_groups }), try(var.remote_objects.resource_groups, {}))
   combined_objects_storage_accounts                    = merge(tomap({ (local.client_config.landingzone_key) = module.storage_accounts }), try(var.remote_objects.storage_accounts, {}))
   combined_objects_synapse_workspaces                  = merge(tomap({ (local.client_config.landingzone_key) = module.synapse_workspaces }), try(var.remote_objects.synapse_workspaces, {}))
+  combined_objects_analysis_services                   = merge(tomap({ (local.client_config.landingzone_key) = module.analysis_services }), try(var.remote_objects.analysis_services, {}))
   combined_objects_databricks_workspaces               = merge(tomap({ (local.client_config.landingzone_key) = module.databricks_workspaces }), try(var.remote_objects.databricks_workspaces, {}))
   combined_objects_virtual_machines                    = merge(tomap({ (local.client_config.landingzone_key) = module.virtual_machines }), try(var.remote_objects.virtual_machines, {}))
   combined_objects_virtual_machine_scale_sets          = merge(tomap({ (local.client_config.landingzone_key) = module.virtual_machine_scale_sets }), try(var.remote_objects.virtual_machine_scale_sets, {}))
