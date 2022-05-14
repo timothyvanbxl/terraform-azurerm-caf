@@ -6,8 +6,13 @@ module "resource_groups" {
     if try(value.reuse, false) == false
   }
 
+  resource_group_name = each.value.name
+  
+  /* BART
   resource_group_name = try(each.value.name, each.value.name_hardcoded)
   resource_group_name_hardcoded = each.value.name_hardcoded
+  */
+
   settings            = each.value
   global_settings     = local.global_settings
   tags                = var.tags
