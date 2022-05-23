@@ -149,3 +149,20 @@ resource "azurerm_synapse_role_assignment" "synapse_role_assignmants" {
   depends_on = [azurerm_synapse_firewall_rule.wrkspc_firewall]
 }
 
+resource "azurerm_synapse_workspace_extended_auditing_policy" "synapse_audit" {
+  count = try(var.settings.synapse_audit, null) == null ? 0 : 1
+  
+  server_id                               = azurerm_synapse_workspace.ws.id
+  storage_endpoint                        = try(data.azurerm_storage_account.synapse_audit.0.primary_blob_endpoint, null)
+  storage_account_access_key              = try(data.azurerm_storage_account.synapse_audit.0.primary_access_key, null)
+  storage_account_access_key_is_secondary = try(var.settings.synapse_audit.storage_account_access_key_is_secondary, false)
+  retention_in_days                       = try(var.settings.synapse_audit.retention_in_days, 30)
+}
+    
+# Synapse audit
+data "azurerm_storage_account" "synapse_audit" {
+  count = try(var.settings.synapse_audit.storage_account_key, null) == null ? 0 : 1
+
+  name                = var.storage_accounts[var.settings.synapse_audit.storage_account_key].name
+  resource_group_name = var.storage_accounts[var.settings.synapse_audit.storage_account_key].resource_group_name
+}
