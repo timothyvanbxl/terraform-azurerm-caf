@@ -149,6 +149,7 @@ resource "azurerm_synapse_role_assignment" "synapse_role_assignmants" {
   depends_on = [azurerm_synapse_firewall_rule.wrkspc_firewall]
 }
 
+/*
 resource "azurerm_synapse_workspace_extended_auditing_policy" "synapse_audit" {
   count = try(var.settings.synapse_audit, null) == null ? 0 : 1
   
@@ -166,3 +167,4 @@ data "azurerm_storage_account" "synapse_audit" {
   name                = var.storage_accounts[var.settings.synapse_audit.storage_account_key].name
   resource_group_name = var.storage_accounts[var.settings.synapse_audit.storage_account_key].resource_group_name
 }
+*/
