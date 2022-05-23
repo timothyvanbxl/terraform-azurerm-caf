@@ -19,10 +19,12 @@ resource "azurerm_synapse_workspace" "ws" {
   storage_data_lake_gen2_filesystem_id = var.storage_data_lake_gen2_filesystem_id
   sql_administrator_login              = var.settings.sql_administrator_login
   sql_administrator_login_password     = try(var.settings.sql_administrator_login_password, random_password.sql_admin.0.result)
-  managed_virtual_network_enabled      = try(var.settings.managed_virtual_network_enabled, false)
   sql_identity_control_enabled         = try(var.settings.sql_identity_control_enabled, null)
+  managed_virtual_network_enabled      = try(var.settings.managed_virtual_network_enabled, false)
   managed_resource_group_name          = try(var.settings.managed_resource_group_name, null)
+  data_exfiltration_protection_enabled = try(var.settings.data_exfiltration_protection_enabled, false)
   customer_managed_key_versionless_id  = try(var.settings.customer_managed_key_versionless_id, null)
+  public_network_access_enabled        = try(var.settings.public_network_access_enabled, true)
   tags                                 = local.tags
 
   dynamic "aad_admin" {
