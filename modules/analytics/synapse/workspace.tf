@@ -24,7 +24,7 @@ resource "azurerm_synapse_workspace" "ws" {
   managed_resource_group_name          = try(var.settings.managed_resource_group_name, null)
   data_exfiltration_protection_enabled = try(var.settings.data_exfiltration_protection_enabled, false)
   customer_managed_key_versionless_id  = try(var.settings.customer_managed_key_versionless_id, null)
-  public_network_access_enabled        = try(var.settings.public_network_access_enabled, true)
+  #public_network_access_enabled        = try(var.settings.public_network_access_enabled, true)
   tags                                 = local.tags
 
   dynamic "aad_admin" {
