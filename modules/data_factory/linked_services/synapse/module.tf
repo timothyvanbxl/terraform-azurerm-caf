@@ -1,4 +1,4 @@
-resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "linked_service_data_lake_storage_gen2" {
+resource "azurerm_data_factory_linked_service_synapse" "linked_service_synapse" {
   name                     = var.name
   resource_group_name      = var.resource_group_name
   data_factory_name        = var.data_factory_name
@@ -7,9 +7,5 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "linked_se
   annotations              = try(var.annotations, null)
   parameters               = try(var.parameters, null)
   additional_properties    = try(var.additional_properties, null)
-  url                      = var.url
-  use_managed_identity     = try(var.use_managed_identity, null)
-  service_principal_id     = try(var.service_principal_id, null)
-  service_principal_key    = try(var.service_principal_key, null)
-  tenant                   = try(var.tenant, null)
+  connection_string        = var.connection_string
 }

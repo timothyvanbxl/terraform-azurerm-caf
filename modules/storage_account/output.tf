@@ -23,6 +23,11 @@ output "primary_blob_endpoint" {
   value       = azurerm_storage_account.stg.primary_blob_endpoint
 }
 
+output "primary_dfs_endpoint" {
+  description = "The endpoint URL for DFS storage in the primary location."
+  value       = azurerm_storage_account.stg.primary_dfs_endpoint
+}
+
 output "containers" {
   description = "The containers output objects as created by the container submodule."
   value       = module.container

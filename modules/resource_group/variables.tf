@@ -10,8 +10,3 @@ variable "resource_group_name" {
   description = "(Required) The name of the resource group where to create the resource."
   type        = string
 }
-variable "resource_group_name_hardcoded" {
-  description = "(Optional) The name of the resource group hardcoded where to create the resource."
-  type        = string
-  default     = "rg-hardcoded-to-add"
-}

@@ -47,5 +47,5 @@ variable "service_principal_key" {
 }
 
 variable "tenant" {
-  description = "(Required) The tenant id or name in which to authenticate against the Azure Data Lake Storage Gen2 account"
+  description = "(Optional) The tenant id or name in which the service principal exists to authenticate against the Azure Data Lake Storage Gen2 account."
 }

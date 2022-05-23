@@ -85,27 +85,49 @@ output "data_factory_linked_service_key_vault" {
 }
   
 ##### azurerm_data_factory_linked_service_data_lake_storage_gen2
-#module "data_factory_linked_service_data_lake_storage_gen2" {
-#  source = "./modules/data_factory/linked_services/data_lake_storage_gen2"
-#
-#  for_each = local.data_factory.linked_services.data_lake_storage_gen2
-#
-#  name                     = each.value.name
-#  resource_group_name      = local.resource_groups[each.value.resource_group_key].name
-#  data_factory_name        = module.data_factory[each.value.data_factory_key].name
-#  description              = try(each.value.description, null)
-#  integration_runtime_name = try(each.value.integration_runtime_name, null)
-#  annotations              = try(each.value.annotations, null)
-#  parameters               = try(each.value.parameters, null)
-#  additional_properties    = try(each.value.additional_properties, null)
-#  connection_string        = module.storage_accounts[each.value.storage_account_key].primary_dfs_endpoint
-#  use_managed_identity     = try(each.value.se_managed_identity, null)
-#  service_principal_id     = try(each.value.service_principal_id, null)
-#  service_principal_key    = try(each.value.service_principal_key, null)
-#  tenant                   = var.tenant
-#
-#}
-#
-#output "data_factory_linked_service_data_lake_storage_gen2" {
-#  value = module.data_factory_linked_service_data_lake_storage_gen2
-#}
+module "data_factory_linked_service_data_lake_storage_gen2" {
+  source = "./modules/data_factory/linked_services/data_lake_storage_gen2"
+
+  for_each = local.data_factory.linked_services.data_lake_storage_gen2
+
+  name                     = each.value.name
+  resource_group_name      = local.resource_groups[each.value.resource_group_key].name
+  data_factory_name        = module.data_factory[each.value.data_factory_key].name
+  description              = try(each.value.description, null)
+  integration_runtime_name = try(each.value.integration_runtime_name, null)
+  annotations              = try(each.value.annotations, null)
+  parameters               = try(each.value.parameters, null)
+  additional_properties    = try(each.value.additional_properties, null)
+  url                      = module.storage_accounts[each.value.storage_account_key].primary_dfs_endpoint
+  use_managed_identity     = try(each.value.use_managed_identity, null)
+  service_principal_id     = try(each.value.service_principal_id, null)
+  service_principal_key    = try(each.value.service_principal_key, null)
+  tenant                   = try(each.value.tenant, null)
+
+}
+
+output "data_factory_linked_service_data_lake_storage_gen2" {
+  value = module.data_factory_linked_service_data_lake_storage_gen2
+}
+
+##### azurerm_data_factory_linked_service_synapse
+module "data_factory_linked_service_synapse" {
+  source = "./modules/data_factory/linked_services/synapse"
+
+  for_each = local.data_factory.linked_services.synapse
+
+  name                     = each.value.name
+  resource_group_name      = local.resource_groups[each.value.resource_group_key].name
+  data_factory_name        = module.data_factory[each.value.data_factory_key].name
+  description              = try(each.value.description, null)
+  integration_runtime_name = try(each.value.integration_runtime_name, null)
+  annotations              = try(each.value.annotations, null)
+  parameters               = try(each.value.parameters, null)
+  additional_properties    = try(each.value.additional_properties, null)
+  connection_string        = try(each.value.connection_string, null)
+
+}
+
+output "data_factory_linked_service_synapse" {
+  value = module.data_factory_linked_service_synapse
+}
