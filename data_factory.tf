@@ -9,6 +9,7 @@ module "data_factory" {
   location                        = lookup(each.value, "region", null) == null ? local.resource_groups[each.value.resource_group_key].location : local.global_settings.regions[each.value.region]
   github_configuration            = try(each.value.github_configuration, null)
   identity                        = try(each.value.identity, null)
+  global_parameter                = try(each.value.global_parameter, null)
   vsts_configuration              = try(each.value.vsts_configuration, null)
   global_settings                 = local.global_settings
   base_tags                       = try(local.global_settings.inherit_tags, false) ? local.resource_groups[each.value.resource_group_key].tags : {}
