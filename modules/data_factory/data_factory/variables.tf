@@ -18,6 +18,10 @@ variable "identity" {
   description = "(Optional) An identity block"
 }
 
+variable "global_parameter" {
+  description = "(Optional) A Global Parameter block"
+}
+
 variable "vsts_configuration" {
   description = "(Optional) A vsts_configuration block"
 }
