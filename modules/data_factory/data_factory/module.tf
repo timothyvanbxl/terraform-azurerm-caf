@@ -36,6 +36,16 @@ resource "azurerm_data_factory" "df" {
     }
   }
 
+  dynamic "global_parameter" {
+    for_each = try(var.global_parameter, null) != null ? [var.global_parameter] : []
+
+    content {
+      name  = global_parameter.value.name
+      type  = global_parameter.value.type
+      value = global_parameter.value.value
+    }
+  }
+
   dynamic "vsts_configuration" {
     for_each = try(var.vsts_configuration, null) != null ? [var.vsts_configuration] : []
 
