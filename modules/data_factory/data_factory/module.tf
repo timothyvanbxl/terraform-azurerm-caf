@@ -52,9 +52,9 @@ resource "azurerm_data_factory" "df" {
     for_each = try(var.global_parameter, {})
 
     content {
-      name  = each.value.name
-      type  = each.value.type
-      value = each.value.value
+      name  = global_parameter.value.name
+      type  = global_parameter.value.type
+      value = global_parameter.value.value
     }
   }
 
