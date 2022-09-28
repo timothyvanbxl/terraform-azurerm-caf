@@ -36,6 +36,7 @@ resource "azurerm_data_factory" "df" {
     }
   }
 
+  /*
   dynamic "global_parameter" {
     for_each = try(var.global_parameter, null) != null ? [var.global_parameter] : []
 
@@ -43,6 +44,17 @@ resource "azurerm_data_factory" "df" {
       name  = global_parameter.value.name
       type  = global_parameter.value.type
       value = global_parameter.value.value
+    }
+  }
+  */
+
+  dynamic "global_parameter" {
+    for_each = try(var.global_parameter, {})
+
+    content {
+      name  = each.value.name
+      type  = each.value.type
+      value = each.value.value
     }
   }
 
