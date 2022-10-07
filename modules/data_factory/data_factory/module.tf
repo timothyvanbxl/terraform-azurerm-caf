@@ -35,8 +35,7 @@ resource "azurerm_data_factory" "df" {
       type = identity.value.type
     }
   }
-
-  /*
+  
   dynamic "global_parameter" {
     for_each = try(var.global_parameter, null) != null ? [var.global_parameter] : []
 
@@ -46,8 +45,8 @@ resource "azurerm_data_factory" "df" {
       value = global_parameter.value.value
     }
   }
-  */
 
+  /*
   dynamic "global_parameter" {
     for_each = try(var.global_parameter, {})
 
@@ -57,6 +56,7 @@ resource "azurerm_data_factory" "df" {
       value = global_parameter.value.value
     }
   }
+  */
 
   dynamic "vsts_configuration" {
     for_each = try(var.vsts_configuration, null) != null ? [var.vsts_configuration] : []
