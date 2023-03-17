@@ -16,4 +16,10 @@ resource "azurerm_synapse_sql_pool" "sql_pool" {
   create_mode          = try(var.settings.create_mode, "Default")
   data_encrypted       = try(var.settings.data_encrypted, "false")
   tags                 = local.tags
+  
+  lifecycle {
+    ignore_changes = [
+      sku_name
+    ]
+  }
 }
