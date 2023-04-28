@@ -162,6 +162,7 @@ resource "azurerm_storage_account" "stg" {
       virtual_network_subnet_ids = try(var.storage_account.network.subnets, null) == null ? null : [
         for key, value in var.storage_account.network.subnets : try(var.vnets[var.client_config.landingzone_key][value.vnet_key].subnets[value.subnet_key].id, var.vnets[value.lz_key][value.vnet_key].subnets[value.subnet_key].id, value.subnet_id, value.subnethardcoded)
       ]
+      private_link_access = try(var.storage_account.network.etex_private_link_access, null) 
     }
   }
 
