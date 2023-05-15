@@ -38,14 +38,14 @@ resource "azurerm_synapse_workspace" "ws" {
   }
 
   dynamic "azure_devops_repo" {
-    for_each = try(var.settings.azure_devops_repo, {})
+    for_each = try(var.settings.azure_devops_repo, null) != null ? [var.settings.azure_devops_repo] : []
 
     content {
-      account_name    = var.settings.azure_devops_repo.account_name
-      branch_name     = var.settings.azure_devops_repo.branch_name
-      project_name    = var.settings.azure_devops_repo.project_name
-      repository_name = var.settings.azure_devops_repo.repository_name
-      root_folder     = var.settings.azure_devops_repo.root_folder
+      account_name    = try(azure_devops_repo.value.account_name, null)
+      branch_name     = try(azure_devops_repo.value.branch_name, null)
+      project_name    = try(azure_devops_repo.value.project_name, null)
+      repository_name = try(azure_devops_repo.value.repository_name, null)
+      root_folder     = try(azure_devops_repo.value.root_folder, null)
     }
   }
 
