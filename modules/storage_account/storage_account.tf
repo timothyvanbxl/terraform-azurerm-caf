@@ -162,7 +162,14 @@ resource "azurerm_storage_account" "stg" {
       virtual_network_subnet_ids = try(var.storage_account.network.subnets, null) == null ? null : [
         for key, value in var.storage_account.network.subnets : try(var.vnets[var.client_config.landingzone_key][value.vnet_key].subnets[value.subnet_key].id, var.vnets[value.lz_key][value.vnet_key].subnets[value.subnet_key].id, value.subnet_id, value.subnethardcoded)
       ]
-      private_link_access = try(var.storage_account.network.private_link_access, [])
+      dynamic "private_link_access" {
+        for_each = lookup(var.storage_account.network, "etex_private_link_access", false) == false ? [] : [1]
+
+        content {
+          endpoint_resource_id  = var.storage_account.network.etex_private_link_access.endpoint_resource_id
+          endpoint_tenant_id    = var.storage_account.network.etex_private_link_access.endpoint_tenant_id
+        }
+      }
     }
   }
 
